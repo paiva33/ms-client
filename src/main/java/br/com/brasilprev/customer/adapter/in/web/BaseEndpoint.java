@@ -15,8 +15,7 @@ import br.com.brasilprev.customer.adapter.in.web.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Customer Endpoint")
-@RequestMapping("/customers")
-public interface BaseEndpoint {
+interface BaseEndpoint {
 	
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.BAD_GATEWAY)
