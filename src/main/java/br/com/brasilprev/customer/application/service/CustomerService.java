@@ -1,29 +1,38 @@
 package br.com.brasilprev.customer.application.service;
 
+import br.com.brasilprev.customer.application.port.out.CrudCustomerPort;
 import org.springframework.stereotype.Service;
 
 import br.com.brasilprev.customer.application.domain.Customer;
 import br.com.brasilprev.customer.application.port.in.CustomerUseCase;
-import br.com.brasilprev.customer.application.port.out.CreateCustomerPort;
-import br.com.brasilprev.customer.application.port.out.LoadCustomerPort;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class CustomerService implements CustomerUseCase {
-	
-	private final LoadCustomerPort loadCustomerPort;
-	private final CreateCustomerPort createCustomerPort;
+
+	private final CrudCustomerPort crudCustomerPort;
 
 	@Override
-	public Customer create(Customer customer) {
-		return createCustomerPort.saveCustomer(customer);
+	public Optional<Customer> create(Customer customer) {
+		return crudCustomerPort.save(customer);
 	}
 
 	@Override
-	public Customer loadCustomerById(Long id) {
-		return loadCustomerPort.loadById(id);
+	public Optional<Customer> read(Customer customer) {
+		return Optional.empty();
 	}
-	
+
+	public Optional<Customer> update(Customer customer) {
+		return crudCustomerPort.update(customer);
+	}
+
+	@Override
+	public void delete(Customer customer) {
+		crudCustomerPort.delete(customer);
+	}
+
 }

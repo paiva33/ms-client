@@ -9,6 +9,7 @@ import lombok.Value;
 @Builder
 public class Customer {
 
+	private Long id;
 	private String name;
 	private String cpf;
 	private Address address;
