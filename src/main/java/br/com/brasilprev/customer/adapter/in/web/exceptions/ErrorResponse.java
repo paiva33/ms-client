@@ -1,4 +1,4 @@
-package br.com.brasilprev.customer.adapter.in.web.exception;
+package br.com.brasilprev.customer.adapter.in.web.exceptions;
 
 import java.util.List;
 

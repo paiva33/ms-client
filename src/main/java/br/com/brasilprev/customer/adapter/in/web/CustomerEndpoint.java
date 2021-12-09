@@ -35,7 +35,6 @@ public class CustomerEndpoint implements BaseEndpoint {
 		
 		customerUseCase.create(requestMapper.mapRequestToDomain(request));
 
-		
 		return null;
 //		return ResponseBuilder
 //				.<CustomerResponse>build()

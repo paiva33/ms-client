@@ -1,4 +1,4 @@
-package br.com.brasilprev.customer.commons;
+package br.com.brasilprev.utility;
 
 import org.springframework.http.ResponseEntity;
 

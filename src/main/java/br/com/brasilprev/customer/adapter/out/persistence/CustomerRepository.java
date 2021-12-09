@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Customer Repository
+ */
 @Repository
 interface CustomerRepository extends CrudRepository<CustomerEntity, Long> {
 

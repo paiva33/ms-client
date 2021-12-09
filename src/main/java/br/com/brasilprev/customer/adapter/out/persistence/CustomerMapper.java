@@ -4,6 +4,9 @@ import br.com.brasilprev.customer.application.domain.Customer;
 
 import java.util.Optional;
 
+/**
+ * Customer Mapper
+ */
 class CustomerMapper {
 
     public CustomerEntity mapToJpaEntity(Customer customer) {

@@ -1,10 +1,14 @@
 package br.com.brasilprev.customer.adapter.out.persistence;
 
+/**
+ * Customer Entity Builder
+ */
 class CustomerEntityBuilder {
 
     private Long id;
     private String name;
     private String cpf;
+    private AddressEntity address;
 
     private CustomerEntityBuilder() {}
     
@@ -25,11 +29,17 @@ class CustomerEntityBuilder {
         return this;
     }
 
+    public CustomerEntityBuilder address(AddressEntity address) {
+        this.address = address;
+        return this;
+    }
+
     public CustomerEntity build() {
         CustomerEntity entity = new CustomerEntity();
         entity.setName(this.name);
         entity.setCpf(this.cpf);
         entity.setId(this.id);
+        entity.setAddress(this.address);
         return entity;
     }
 }

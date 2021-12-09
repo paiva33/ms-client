@@ -1,4 +1,4 @@
-package br.com.brasilprev.customer.commons;
+package br.com.brasilprev.utility.annotations;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
