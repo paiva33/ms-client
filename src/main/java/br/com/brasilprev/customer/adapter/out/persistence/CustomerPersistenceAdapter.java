@@ -40,12 +40,12 @@ public class CustomerPersistenceAdapter implements CrudCustomerPort, SearchCusto
 	}
 
 	@Override
-	public void delete(Customer customer) {
-		customerRepository.findByCpf(customer.getCpf())
-				.flatMap(customerEntity -> {
-							customerRepository.delete(customerEntity);
-							return Optional.of(customerEntity);
-							}
-						);
+	public Optional<Void> delete(Customer customer) {
+		var entity = customerRepository.findByCpf(customer.getCpf())
+				.map(customerEntity -> {
+					customerRepository.delete(customerEntity);
+					return customerEntity;
+				});
+		return Optional.empty();
 	}
 }
