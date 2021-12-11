@@ -7,4 +7,6 @@ import lombok.Value;
 @Builder
 public class CustomerResponse {
 
+    private String cpf;
+    private String name;
 }
