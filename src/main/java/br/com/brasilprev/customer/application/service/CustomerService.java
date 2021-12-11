@@ -1,11 +1,10 @@
 package br.com.brasilprev.customer.application.service;
 
-import br.com.brasilprev.customer.application.port.out.CrudCustomerPort;
-import org.springframework.stereotype.Service;
-
 import br.com.brasilprev.customer.application.domain.Customer;
 import br.com.brasilprev.customer.application.port.in.CustomerUseCase;
+import br.com.brasilprev.customer.application.port.out.CrudCustomerPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -28,13 +27,14 @@ public class CustomerService implements CustomerUseCase {
         return Optional.empty();
     }
 
+    @Override
     public Optional<Customer> update(Customer customer) {
         return crudCustomerPort.update(customer);
     }
 
     @Override
-    public void delete(Customer customer) {
-        crudCustomerPort.delete(customer);
+    public Optional<Void> delete(Customer customer) {
+        return crudCustomerPort.delete(customer);
     }
 
 }
