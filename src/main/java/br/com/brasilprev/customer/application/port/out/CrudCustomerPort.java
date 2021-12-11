@@ -9,5 +9,5 @@ public interface CrudCustomerPort {
     Optional<Customer> save(Customer customer);
     Optional<Customer> read(Customer customer);
     Optional<Customer> update(Customer customer);
-    void delete(Customer Customer);
+    Optional<Void> delete(Customer Customer);
 }

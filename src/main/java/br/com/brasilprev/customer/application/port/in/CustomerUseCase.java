@@ -5,7 +5,7 @@ import br.com.brasilprev.customer.application.domain.Customer;
 import java.util.Optional;
 
 /**
- *
+ * Customer Use Case
  */
 public interface CustomerUseCase {
 
@@ -34,7 +34,7 @@ public interface CustomerUseCase {
 	 *
 	 * @param customer
 	 */
-	void delete(Customer customer);
+	Optional<Void> delete(Customer customer);
 
 
 }
