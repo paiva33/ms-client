@@ -14,31 +14,30 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RestController("customers")
+@RestController("api/customers")
 public class CustomerEndpoint implements BaseEndpoint {
 	
 	private final CustomerUseCase customerUseCase;
-	private final CustomerRequestMapper requestMapper;
-	private final CustomerResponseMapper responseMapper;
-
 	/**
-	 * {@code POST /api/v1/customers } Create customer.
+	 * {@code POST /api/v1/customers } Create a new customer.
+	 * @param request the CustomerRequest a create.
+	 * @return the {@link ResponseEntity<CustomerRequest>} with status {@code 201 (Created)} and with body the new customerResponse,
+	 * 			or with status {@code 400 (Bad Request)} if the customer has already an ID.
 	 */
 	@Operation(summary = "Create customer", tags = {"CreateCustomer"})
-//	@ApiResponses(value = {
-//			@ApiResponse(responseCode = "201", description = "Create customer.", content = {
-//					@Content(mediaType = "application/json", schema = @Schema(implementation = CustomerRequest.class)) }),
-//			@ApiResponse(responseCode = "400", description = "Requisição inválida.", content = @Content) })
-	@ApiResponse(responseCode = "201", description = "Customer Created", content = {@Content(mediaType = "application/json")})
-	@ApiResponse(responseCode = "404")
-	@ApiResponse(responseCode = "409")
-	@ApiResponse(responseCode = "500", description = "Internal Server Error", content = {@Content(mediaType = "application/json")})
+	@ApiResponses({
+		@ApiResponse(responseCode = "201", description = "a new customer Created", content = {@Content(mediaType = "application/json")}),
+		@ApiResponse(responseCode = "400", )
+	})
 	@PostMapping(produces = { "application/json" }, consumes = {"application/json" })
 	public ResponseEntity<CustomerResponse> create(@RequestBody @Valid CustomerRequest request) {
 		return customerUseCase.create(requestMapper.mapRequestToDomain(request))
-							.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
-							.orElseGet(ResponseEntity.badRequest()::build);
+				.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
+				.orElseGet(ResponseEntity.badRequest()::build);
 	}
+	private final CustomerRequestMapper requestMapper;
+
+	private final CustomerResponseMapper responseMapper;
 
 	/**
 	 *
