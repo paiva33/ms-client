@@ -1,0 +1,29 @@
+spring:
+
+  # Datasource Settings
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/customer_data}
+    username: ${DATABASE_USER:customer_user}
+    password: ${DATABASE_PASSWORD:customer_user}
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+
+  # JPA Settings
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQL92Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
+  # Flyway
+  flyway:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/customer_data}
+    schemas:
+      - public
+    user: ${DATABASE_USER:customer_user}
+    password: ${DATABASE_PASSWORD:customer_user}
