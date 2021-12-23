@@ -10,7 +10,7 @@ public class Customer {
 
 	private Long id;
 	private String name;
-	private String cpf;
+	private String document;
 	private Address address;
 
 }

@@ -1,5 +1,9 @@
 package br.com.brasilprev.application.customer.adapter.in.web;
 
+import br.com.brasilprev.application.customer.adapter.in.web.mappers.CustomerRequestMapper;
+import br.com.brasilprev.application.customer.adapter.in.web.mappers.CustomerResponseMapper;
+import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerRequest;
+import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerResponse;
 import br.com.brasilprev.application.customer.core.port.in.CustomerUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,12 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Endpoint Customer
  */
 @RequiredArgsConstructor
-@RestController("api/customer/v1")
+@RestController
+@RequestMapping("/api/customer/v1")
 public class CustomerEndpoint implements BaseEndpoint {
 
 	private final CustomerUseCase customerUseCase;
@@ -24,7 +31,7 @@ public class CustomerEndpoint implements BaseEndpoint {
 	/**
 	 * {@code POST /api/customer/v1 } Create a new customer.
 	 * @param request the CustomerRequest a create.
-	 * @return the {@link ResponseEntity<CustomerRequest>} with status {@code 201 (Created)} and with body the new customerResponse,
+	 * @return the {@link ResponseEntity< CustomerRequest >} with status {@code 201 (Created)} and with body the new customerResponse,
 	 * 			or with status {@code 400 (Bad Request)} if the customer has already an ID.
 	 */
 	@ApiOperation(value = "Create customer")
@@ -65,18 +72,31 @@ public class CustomerEndpoint implements BaseEndpoint {
 	 * @return
 	 */
 	@ApiOperation(value = "Get all customers", tags={"GetAllCustomers"})
-	@GetMapping
-	public ResponseEntity<CustomerResponse> getAllCustomers(CustomerRequest request) {
+	@GetMapping("/search")
+	public ResponseEntity<CustomerResponse> getAllCustomers(@RequestBody @Valid CustomerRequest request) {
 		return customerUseCase.read(requestMapper.mapRequestToDomain(request))
 				.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
 
+	/**
+	 * {@code GET /api/customer/v1 }
+	 * @param
+	 * @return
+	 */
+	@ApiOperation(value = "Get all customers", tags={"GetAllCustomers"})
+	@GetMapping
+	public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
+		return Optional.ofNullable(customerUseCase.readAll())
+				.map(customers -> ResponseEntity.ok().body(responseMapper.mapDomainToRequestList(customers)))
+				.orElseGet(ResponseEntity.badRequest()::build);
+	}
 
-	@GetMapping("{cpf}")
-	public ResponseEntity<CustomerResponse> findByCpf(@PathVariable String cpf) {
+
+	@GetMapping("/{document}")
+	public ResponseEntity<CustomerResponse> findByDocument(@PathVariable String document) {
 		return customerUseCase
-				.read(requestMapper.mapRequestToDomainWithCpf(cpf))
+				.read(requestMapper.mapRequestToDomainWithDocument(document))
 				.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}

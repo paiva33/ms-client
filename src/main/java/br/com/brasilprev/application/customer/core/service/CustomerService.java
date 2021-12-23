@@ -6,6 +6,7 @@ import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,6 +27,9 @@ public class CustomerService implements CustomerUseCase {
     public Optional<Customer> read(Customer customer) {
         return Optional.empty();
     }
+
+    @Override
+    public List<Customer> readAll() { return crudCustomerPort.readAll(); }
 
     @Override
     public Optional<Customer> update(Customer customer) {

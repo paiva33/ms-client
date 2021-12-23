@@ -7,7 +7,7 @@ class CustomerEntityBuilder {
 
     private Long id;
     private String name;
-    private String cpf;
+    private String document;
     private AddressEntity address;
 
     private CustomerEntityBuilder() {}
@@ -19,8 +19,8 @@ class CustomerEntityBuilder {
         return this;
     }
 
-    public CustomerEntityBuilder cpf(String cpf) {
-        this.cpf = cpf;
+    public CustomerEntityBuilder document(String document) {
+        this.document = document;
         return this;
     }
 
@@ -37,7 +37,7 @@ class CustomerEntityBuilder {
     public CustomerEntity build() {
         CustomerEntity entity = new CustomerEntity();
         entity.setName(this.name);
-        entity.setCpf(this.cpf);
+        entity.setDocument(this.document);
         entity.setId(this.id);
         entity.setAddress(this.address);
         return entity;

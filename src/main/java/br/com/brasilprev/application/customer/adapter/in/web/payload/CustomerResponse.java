@@ -1,4 +1,4 @@
-package br.com.brasilprev.application.customer.adapter.in.web;
+package br.com.brasilprev.application.customer.adapter.in.web.payload;
 
 import lombok.Builder;
 import lombok.Value;
@@ -7,6 +7,6 @@ import lombok.Value;
 @Builder
 public class CustomerResponse {
 
-    private String cpf;
+    private String document;
     private String name;
 }

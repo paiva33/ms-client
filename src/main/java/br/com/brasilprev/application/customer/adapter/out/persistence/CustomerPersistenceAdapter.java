@@ -6,7 +6,10 @@ import br.com.brasilprev.application.customer.core.port.out.SearchCustomerPort;
 import br.com.brasilprev.application.utility.annotations.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Customer Adapter
@@ -28,7 +31,7 @@ public class CustomerPersistenceAdapter implements CrudCustomerPort, SearchCusto
 
 	@Override
 	public Optional<Customer> read(Customer customer) {
-		return customerRepository.findByCpf(customer.getCpf())
+		return customerRepository.findByDocument(customer.getDocument())
 				.flatMap(c -> customerMapper.mapToDomainEntity(c));
 	}
 
@@ -41,10 +44,17 @@ public class CustomerPersistenceAdapter implements CrudCustomerPort, SearchCusto
 
 	@Override
 	public Optional<Void> delete(Customer customer) {
-		return customerRepository.findByCpf(customer.getCpf())
+		return customerRepository.findByDocument(customer.getDocument())
 				.flatMap(customerEntity -> {
 					customerRepository.delete(customerEntity);
 					return Optional.empty();
 				});
+	}
+
+	@Override
+	public List<Customer> readAll() {
+		return Optional.ofNullable(customerRepository.findAll())
+				.map(customerEntities -> customerMapper.mapToListDomainEntity(customerEntities))
+				.orElseGet(null);
 	}
 }

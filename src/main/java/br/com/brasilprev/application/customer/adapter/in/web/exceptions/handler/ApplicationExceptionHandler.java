@@ -1,9 +1,10 @@
-package br.com.brasilprev.application.customer.adapter.in.web.exceptions;
+package br.com.brasilprev.application.customer.adapter.in.web.exceptions.handler;
 
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.brasilprev.application.customer.adapter.in.web.exceptions.ErrorResponse;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

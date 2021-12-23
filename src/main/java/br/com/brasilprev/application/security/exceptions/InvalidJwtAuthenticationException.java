@@ -1,4 +1,4 @@
-package br.com.brasilprev.application.security;
+package br.com.brasilprev.application.security.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

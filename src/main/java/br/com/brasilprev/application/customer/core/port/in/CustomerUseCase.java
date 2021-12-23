@@ -2,6 +2,7 @@ package br.com.brasilprev.application.customer.core.port.in;
 
 import br.com.brasilprev.application.customer.core.domain.Customer;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,6 +23,12 @@ public interface CustomerUseCase {
 	 * @return
 	 */
 	Optional<Customer> read(Customer customer);
+
+	/**
+	 *
+	 * @return
+	 */
+	List<Customer> readAll();
 
 	/**
 	 *

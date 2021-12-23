@@ -1,6 +1,6 @@
 package br.com.brasilprev.application.security.jwt;
 
-import br.com.brasilprev.application.security.InvalidJwtAuthenticationException;
+import br.com.brasilprev.application.security.exceptions.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

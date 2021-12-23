@@ -1,9 +1,19 @@
 CREATE SEQUENCE customers_seq;
+CREATE SEQUENCE addresses_seq;
 
 CREATE TABLE IF NOT EXISTS customers (
   id int NOT NULL DEFAULT NEXTVAL ('customers_seq'),
   name varchar(120),
   document varchar(11),
+  address_id int,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS addresses (
+  id int NOT NULL DEFAULT NEXTVAL ('addresses_seq'),
+  street varchar(120),
+  district varchar(120),
+  city varchar(30),
   PRIMARY KEY (id)
 );
 

@@ -78,25 +78,25 @@ public class CustomerServiceTest {
     public void testReadCustomer() {
 
         Customer customer1 = getCustomer();
-        customer1.setCpf("111111111");
+        customer1.setDocument("111111111");
 
         Customer customer2 = getCustomer();
         customer2.setId(1L);
-        customer2.setCpf("111111111");
+        customer2.setDocument("111111111");
         customer2.setName("Joao ");
 
         when(crudCustomerPort.read(customer1)).thenReturn(Optional.of(customer1));
 
         var result = customerUseCase.read(customer1);
 
-        assertThat(customer2.getCpf(), equalTo("111111111"));
+        assertThat(customer2.getDocument(), equalTo("111111111"));
         assertThat(customer2.getName(), equalTo("Joao "));
         assertThat(customer2.getId(), equalTo(1L));
     }
 
     private Customer getCustomer() {
         return Customer.builder()
-                .cpf("11111111111")
+                .document("11111111111")
                 .name("Fulano de Tal")
                 .build();
     }

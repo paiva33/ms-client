@@ -1,8 +1,10 @@
 package br.com.brasilprev.application.customer.adapter.out.persistence;
 
 import br.com.brasilprev.application.customer.core.domain.Customer;
+import br.com.brasilprev.application.utility.converter.DozerConverter;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,7 +16,7 @@ class CustomerMapper {
     public CustomerEntity mapToJpaEntity(Customer customer) {
         return CustomerEntityBuilder.builder()
                 .id(customer.getId())
-                .cpf(customer.getCpf())
+                .document(customer.getDocument())
                 .name(customer.getName())
                 .address(AddressEntityBuilder.builder()
                         .street(customer.getAddress().getStreet())
@@ -26,10 +28,15 @@ class CustomerMapper {
     }
 
     public Optional<Customer> mapToDomainEntity(CustomerEntity customerEntity) {
-        return Optional.of(Customer.builder()
+        return Optional.ofNullable(Customer.builder()
                 .id(customerEntity.getId())
-                .cpf(customerEntity.getCpf())
+                .document(customerEntity.getDocument())
                 .name(customerEntity.getName())
                 .build());
+    }
+
+    public List<Customer> mapToListDomainEntity(List<CustomerEntity> entities) {
+        return DozerConverter
+                .parseListObjects(entities, Customer.class);
     }
 }

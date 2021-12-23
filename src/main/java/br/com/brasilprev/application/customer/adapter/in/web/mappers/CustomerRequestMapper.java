@@ -1,5 +1,6 @@
-package br.com.brasilprev.application.customer.adapter.in.web;
+package br.com.brasilprev.application.customer.adapter.in.web.mappers;
 
+import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerRequest;
 import br.com.brasilprev.application.customer.core.domain.Customer;
 import org.springframework.stereotype.Component;
 
@@ -14,14 +15,14 @@ public class CustomerRequestMapper {
 
     public Customer mapRequestToDomain(CustomerRequest request) {
         return Customer.builder()
-                .cpf(request.getCpf())
+                .document(request.getDocument())
                 .name(request.getName())
                 .build();
     }
 
-    public Customer mapRequestToDomainWithCpf(String cpf) {
+    public Customer mapRequestToDomainWithDocument(String document) {
         return Customer.builder()
-                .cpf(cpf)
+                .document(document)
                 .build();
     }
 }
