@@ -1,11 +1,10 @@
 package br.com.brasilprev.application.customer.core.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Value;
+import lombok.*;
 
-@Data
-@Builder
+@Getter
+@Setter
+//@Builder
 public class Customer {
 
 	private Long id;
@@ -13,4 +12,13 @@ public class Customer {
 	private String document;
 	private Address address;
 
+	public Customer() {}
+
+	public Customer(Long id) {
+		this.id = id;
+	}
+
+	public Customer(String document) {
+		this.document = document;
+	}
 }

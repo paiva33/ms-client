@@ -1,4 +1,4 @@
-package br.com.brasilprev.application.customer.adapter.out.persistence;
+package br.com.brasilprev.application.customer.adapter.out.persistence.entity;
 
 import lombok.*;
 
@@ -14,15 +14,17 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = {"street", "district", "city", "zipCode", "number"})
 @Table(name = "addresses")
 @Entity(name = "address")
-class AddressEntity {
+public class AddressEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String street;
     private long number;
-    private String district;
+    private String country;
     private String city;
     private String state;
+
+    @Column(name = "zipcode")
     private String zipCode;
 }

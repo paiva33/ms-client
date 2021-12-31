@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
+import br.com.brasilprev.application.customer.core.builders.CustomerBuilder;
 import br.com.brasilprev.application.customer.core.domain.Customer;
 import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
 import br.com.brasilprev.application.customer.core.service.CustomerService;
@@ -30,10 +31,11 @@ public class CustomerServiceTest {
 
     @InjectMocks
     private CustomerService customerUseCase;
-
+    
     @Test
-    public void testCreateCustomer() {
-
+    void testCreateCustomer() {
+    	
+    	log.info("create customer");
         Customer customer = getCustomer();
         Customer newCustomer = getCustomer();
         newCustomer.setId(1L);
@@ -42,13 +44,35 @@ public class CustomerServiceTest {
 
         var result = customerUseCase.create(customer);
 
-        assertThat(newCustomer.getId(), notNullValue());
+        assertThat(result, notNullValue());
 
     }
+    
+    @Test
+    void testReadCustomer() {
+    	
+    	log.info("read customer");
+        Customer customer1 = getCustomer();
+        customer1.setDocument("111111111");
+
+        Customer customer2 = getCustomer();
+        customer2.setId(1L);
+        customer2.setDocument("111111111");
+        customer2.setName("Joao ");
+
+        var result = customerUseCase.read(customer1);
+
+        assertThat(customer2.getDocument(), equalTo("111111111"));
+        assertThat(customer2.getName(), equalTo("Joao "));
+        assertThat(customer2.getId(), equalTo(1L));
+        assertThat(result, notNullValue());
+    }
+
 
     @Test
-    public void testUpdateCustomer() {
-
+    void testUpdateCustomer() {
+    	
+    	log.info("update customer");
         Customer customer1 = getCustomer();
         customer1.setId(1L);
         customer1.setName("Fulano 2");
@@ -65,37 +89,20 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void testDeleteCustomer() {
-
+    void testDeleteCustomer() {
+    	
+    	log.info("delete customer");
         Customer customer = getCustomer();
 
         when(crudCustomerPort.delete(customer)).thenReturn(Optional.<Void>empty());
 
         var result = customerUseCase.delete(customer);
-    }
-
-    @Test
-    public void testReadCustomer() {
-
-        Customer customer1 = getCustomer();
-        customer1.setDocument("111111111");
-
-        Customer customer2 = getCustomer();
-        customer2.setId(1L);
-        customer2.setDocument("111111111");
-        customer2.setName("Joao ");
-
-        when(crudCustomerPort.read(customer1)).thenReturn(Optional.of(customer1));
-
-        var result = customerUseCase.read(customer1);
-
-        assertThat(customer2.getDocument(), equalTo("111111111"));
-        assertThat(customer2.getName(), equalTo("Joao "));
-        assertThat(customer2.getId(), equalTo(1L));
+        
+        assertThat(result, notNullValue());
     }
 
     private Customer getCustomer() {
-        return Customer.builder()
+        return CustomerBuilder.builder()
                 .document("11111111111")
                 .name("Fulano de Tal")
                 .build();

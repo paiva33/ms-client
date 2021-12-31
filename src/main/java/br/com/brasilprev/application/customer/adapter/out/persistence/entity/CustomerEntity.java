@@ -1,5 +1,6 @@
-package br.com.brasilprev.application.customer.adapter.out.persistence;
+package br.com.brasilprev.application.customer.adapter.out.persistence.entity;
 
+import br.com.brasilprev.application.customer.adapter.out.persistence.entity.AddressEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @ToString(of = {"name", "cpf"})
 @Entity(name="customer")
 @Table(name = "customers")
-class CustomerEntity {
+public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

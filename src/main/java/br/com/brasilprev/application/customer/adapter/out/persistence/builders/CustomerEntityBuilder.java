@@ -1,9 +1,12 @@
-package br.com.brasilprev.application.customer.adapter.out.persistence;
+package br.com.brasilprev.application.customer.adapter.out.persistence.builders;
+
+
+import br.com.brasilprev.application.customer.adapter.out.persistence.entity.*;
 
 /**
  * Customer Entity Builder
  */
-class CustomerEntityBuilder {
+public class CustomerEntityBuilder {
 
     private Long id;
     private String name;

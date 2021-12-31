@@ -1,28 +1,22 @@
-package br.com.brasilprev.application.customer.adapter.in.web.mappers;
+package br.com.brasilprev.application.customer.adapter.in.web.mapper;
 
 import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerRequest;
 import br.com.brasilprev.application.customer.core.domain.Customer;
+import br.com.brasilprev.application.utility.converter.DozerConverter;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerRequestMapper {
 
     public Customer mapRequesToDomainWithId(Long id) {
-        return Customer.builder()
-                .id(id)
-                .build();
+        return new Customer(id);
     }
 
     public Customer mapRequestToDomain(CustomerRequest request) {
-        return Customer.builder()
-                .document(request.getDocument())
-                .name(request.getName())
-                .build();
+        return DozerConverter.parseObject(request, Customer.class);
     }
 
     public Customer mapRequestToDomainWithDocument(String document) {
-        return Customer.builder()
-                .document(document)
-                .build();
+        return new Customer(document);
     }
 }

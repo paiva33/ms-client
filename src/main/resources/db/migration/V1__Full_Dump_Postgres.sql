@@ -12,16 +12,23 @@ CREATE TABLE IF NOT EXISTS customers (
 CREATE TABLE IF NOT EXISTS addresses (
   id int NOT NULL DEFAULT NEXTVAL ('addresses_seq'),
   street varchar(120),
-  district varchar(120),
+  country varchar(120),
   city varchar(30),
+  number int,
+  zipCode varchar(10),
+  state varchar(10),
   PRIMARY KEY (id)
 );
 
-INSERT INTO customers (name, document) VALUES
-    ('Michael C. Feathers', '11111111111'),
-    ('Ralph Johnson', '22222222222'),
-    ('Robert C', '33333333333'),
-    ('Crockford', '44444444444');
+INSERT INTO customers (name, document, address_id) VALUES
+    ('Michael C. Feathers', '11111111111', 1),
+    ('Ralph Johnson', '22222222222', 1),
+    ('Robert C', '33333333333', null),
+    ('Crockford', '44444444444', null);
+
+INSERT INTO addresses (street, number, zipCode, country, city) VALUES
+    ('Bellenden Way', '11', '1111', 'Rwanda', 'Moreno Valley');
+
 
 CREATE SEQUENCE permission_seq;
 
