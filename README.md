@@ -8,5 +8,5 @@ docker-compose -f src/main/docker/postgresql.yml up -d
 * Swagger
 
 ```
-http://localhost:8080/api/swagger-ui/
+http://localhost:8080/swagger-ui.html
 ```
