@@ -1,8 +1,10 @@
 package br.com.brasilprev.application.customer.core.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Address {
 
     private String street;

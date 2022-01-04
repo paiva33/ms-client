@@ -34,7 +34,7 @@ public class CustomerBuilder {
     }
 
     public Customer build() {
-       Customer customer = new Customer();
+       Customer customer = Customer.builder().build();
        customer.setDocument(this.document);
        customer.setName(this.name);
        customer.setAddress(this.address);

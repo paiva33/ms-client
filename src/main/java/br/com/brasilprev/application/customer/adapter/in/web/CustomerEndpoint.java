@@ -4,6 +4,7 @@ import br.com.brasilprev.application.customer.adapter.in.web.mapper.CustomerRequ
 import br.com.brasilprev.application.customer.adapter.in.web.mapper.CustomerResponseMapper;
 import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerRequest;
 import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerResponse;
+import br.com.brasilprev.application.customer.core.domain.Customer;
 import br.com.brasilprev.application.customer.core.port.in.CustomerUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -41,8 +42,8 @@ public class CustomerEndpoint implements BaseEndpoint {
 	})
 	@PostMapping(produces = { "application/json" }, consumes = {"application/json" })
 	public ResponseEntity<CustomerResponse> create(@RequestBody @Valid CustomerRequest request) {
-		return customerUseCase.create(requestMapper.mapRequestToDomain(request))
-				.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
+		return customerUseCase.create(requestMapper.toDomain(request))
+				.map(customer -> ResponseEntity.ok().body(responseMapper.toPayload(customer)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
 
@@ -61,8 +62,8 @@ public class CustomerEndpoint implements BaseEndpoint {
 	})
 	@PutMapping
 	public ResponseEntity<CustomerResponse> update(@RequestBody @Valid CustomerRequest request) {
-		return customerUseCase.update(requestMapper.mapRequestToDomain(request))
-				.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
+		return customerUseCase.update(requestMapper.toDomain(request))
+				.map(customer -> ResponseEntity.ok().body(responseMapper.toPayload(customer)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
 
@@ -74,8 +75,8 @@ public class CustomerEndpoint implements BaseEndpoint {
 	@ApiOperation(value = "Get all customers", tags={"GetAllCustomers"})
 	@GetMapping("/search")
 	public ResponseEntity<CustomerResponse> read(@RequestBody @Valid CustomerRequest request) {
-		return customerUseCase.read(requestMapper.mapRequestToDomain(request))
-				.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
+		return customerUseCase.read(requestMapper.toDomain(request))
+				.map(customer -> ResponseEntity.ok().body(responseMapper.toPayload(customer)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
 
@@ -88,16 +89,18 @@ public class CustomerEndpoint implements BaseEndpoint {
 	@GetMapping
 	public ResponseEntity<List<CustomerResponse>> readAll() {
 		return Optional.ofNullable(customerUseCase.readAll())
-				.map(customers -> ResponseEntity.ok().body(responseMapper.mapDomainToRequestList(customers)))
+				.map(customers -> ResponseEntity.ok().body(responseMapper.toPayload(customers)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
 
 
-	@GetMapping("/{document}")
-	public ResponseEntity<CustomerResponse> findByDocument(@PathVariable String document) {
+	@GetMapping("/{id}")
+	public ResponseEntity<CustomerResponse> readById(@PathVariable Long id) {
 		return customerUseCase
-				.read(requestMapper.mapRequestToDomainWithDocument(document))
-				.map(customer -> ResponseEntity.ok().body(responseMapper.mapDomainToRequest(customer)))
+				.read(requestMapper.toDomain(CustomerRequest.builder()
+												.id(id)
+												.build()))
+				.map(customer -> ResponseEntity.ok().body(responseMapper.toPayload(customer)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
 
@@ -109,12 +112,10 @@ public class CustomerEndpoint implements BaseEndpoint {
 	 */
 	@ApiOperation(value = "Delete customer", tags = {"DeleteCustomer"})
 	//@ApiResponse(code = 204)
-	@DeleteMapping
-	public ResponseEntity delete(@PathVariable Long id) {
-		return customerUseCase
-				.delete(requestMapper.mapRequesToDomainWithId(id))
-				.map(customer -> ResponseEntity.noContent().build())
-				.orElseGet(ResponseEntity.badRequest()::build);
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		customerUseCase
+				.delete(requestMapper.toDomain(CustomerRequest.builder().id(id).build()));
 	}
 
 

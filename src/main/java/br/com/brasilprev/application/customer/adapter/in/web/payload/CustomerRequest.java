@@ -9,7 +9,9 @@ import lombok.Value;
 @Setter
 @Builder
 public class CustomerRequest {
-	
+
+
+	private Long id;
 	private String name;
 	private String document;
 }

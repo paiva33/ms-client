@@ -5,10 +5,8 @@ import br.com.brasilprev.application.customer.adapter.out.persistence.builders.C
 import br.com.brasilprev.application.customer.adapter.out.persistence.entity.CustomerEntity;
 import br.com.brasilprev.application.customer.core.builders.CustomerBuilder;
 import br.com.brasilprev.application.customer.core.domain.Customer;
-import br.com.brasilprev.application.utility.converter.DozerConverter;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,8 +37,4 @@ public class CustomerMapper {
                 .build());
     }
 
-    public List<Customer> mapToListDomainEntity(List<CustomerEntity> entities) {
-        return DozerConverter
-                .parseListObjects(entities, Customer.class);
-    }
 }

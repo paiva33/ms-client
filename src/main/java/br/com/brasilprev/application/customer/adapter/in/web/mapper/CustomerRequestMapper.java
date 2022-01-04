@@ -1,22 +1,34 @@
 package br.com.brasilprev.application.customer.adapter.in.web.mapper;
 
 import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerRequest;
+import br.com.brasilprev.application.customer.core.builders.CustomerBuilder;
 import br.com.brasilprev.application.customer.core.domain.Customer;
-import br.com.brasilprev.application.utility.converter.DozerConverter;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class CustomerRequestMapper {
+import java.util.List;
 
-    public Customer mapRequesToDomainWithId(Long id) {
-        return new Customer(id);
+@Mapper(componentModel = "spring")
+public interface CustomerRequestMapper {
+
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "document", target = "document")
+    Customer toDomain(CustomerRequest request);
+
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "document", target = "document")
+    CustomerRequest toPayload(Customer customer);
+
+    List<Customer> toDomain(List<CustomerRequest> source);
+    List<CustomerRequest> toPayLoad(List<CustomerRequest> requests);
+
+    default Customer fromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return CustomerBuilder.builder()
+                .id(id)
+                .build();
     }
 
-    public Customer mapRequestToDomain(CustomerRequest request) {
-        return DozerConverter.parseObject(request, Customer.class);
-    }
-
-    public Customer mapRequestToDomainWithDocument(String document) {
-        return new Customer(document);
-    }
 }

@@ -1,6 +1,7 @@
 package br.com.brasilprev.application.customer.adapter.out.persistence;
 
 import br.com.brasilprev.application.customer.adapter.out.persistence.mapper.CustomerMapper;
+import br.com.brasilprev.application.customer.adapter.out.persistence.mapper.CustomerPersistenceMapper;
 import br.com.brasilprev.application.customer.core.domain.Customer;
 import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
 import br.com.brasilprev.application.customer.core.port.out.SearchCustomerPort;
@@ -18,42 +19,42 @@ import java.util.Optional;
 public class CustomerPersistenceAdapter implements CrudCustomerPort, SearchCustomerPort {
 	
 	private final CustomerRepository customerRepository;
-	private final CustomerMapper customerMapper;
+	private final CustomerPersistenceMapper customerPersistenceMapper;
 
 	@Override
 	public Optional<Customer> save(Customer customer) {
-		return customerMapper
-				.mapToDomainEntity(customerRepository
-						.save(customerMapper
-								.mapToJpaEntity(customer)));
+		return Optional
+				.of(customerPersistenceMapper
+					.toDomain(customerRepository
+						.save(customerPersistenceMapper
+								.toEntity(customer))));
 	}
 
 	@Override
 	public Optional<Customer> read(Customer customer) {
-		return customerRepository.findByDocument(customer.getDocument())
-				.flatMap(c -> customerMapper.mapToDomainEntity(c));
+		return customerRepository.findById(customer.getId())
+				.map(c -> customerPersistenceMapper.toDomain(c));
 	}
 
 	@Override
 	public Optional<Customer> update(Customer customer) {
-		return customerMapper
-				.mapToDomainEntity(customerRepository
-						.save(customerMapper.mapToJpaEntity(customer)));
+		return Optional
+				.of(customerPersistenceMapper
+					.toDomain(customerRepository
+						.save(customerPersistenceMapper.toEntity(customer))));
 	}
 
 	@Override
 	public Optional<Void> delete(Customer customer) {
-		return customerRepository.findByDocument(customer.getDocument())
-				.flatMap(customerEntity -> {
-					customerRepository.delete(customerEntity);
-					return Optional.empty();
-				});
+		customerRepository
+				.delete(customerPersistenceMapper.toEntity(customer));
+		return Optional.empty();
 	}
 
 	@Override
 	public List<Customer> readAll() {
 		return Optional.ofNullable(customerRepository.findAll())
-				.map(customerEntities -> customerMapper.mapToListDomainEntity(customerEntities))
+				.map(customerEntities -> customerPersistenceMapper.toDomain(customerEntities))
 				.orElseGet(null);
 	}
 }

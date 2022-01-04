@@ -42,11 +42,6 @@ public class AddressEntityBuilder {
 
     public AddressEntity build() {
         AddressEntity entity = new AddressEntity();
-        entity.setStreet(this.street);
-        entity.setCity(this.city);
-        entity.setState(this.state);
-        entity.setNumber(this.number);
-        entity.setZipCode(this.zipCode);
         return entity;
     }
 }

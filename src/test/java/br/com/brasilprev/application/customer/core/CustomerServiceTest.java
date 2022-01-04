@@ -1,15 +1,18 @@
 package br.com.brasilprev.application.customer.core;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 import br.com.brasilprev.application.customer.core.builders.CustomerBuilder;
 import br.com.brasilprev.application.customer.core.domain.Customer;
+import br.com.brasilprev.application.customer.core.exceptions.CustomerNotFoundException;
 import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
 import br.com.brasilprev.application.customer.core.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -88,17 +91,17 @@ public class CustomerServiceTest {
         assertThat(result, equalTo(Optional.of(domain2)));
     }
 
+
     @Test
     void testDeleteCustomer() {
-    	
+
     	log.info("delete customer");
         Customer customer = getCustomer();
 
-        when(crudCustomerPort.delete(customer)).thenReturn(Optional.<Void>empty());
+        when(crudCustomerPort.read(getCustomer())).thenReturn(Optional.of(getCustomer()));
 
-        var result = customerUseCase.delete(customer);
-        
-        assertThat(result, notNullValue());
+        customerUseCase.delete(customer);
+
     }
 
     private Customer getCustomer() {

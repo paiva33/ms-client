@@ -1,6 +1,7 @@
 package br.com.brasilprev.application.customer.core.service;
 
 import br.com.brasilprev.application.customer.core.domain.Customer;
+import br.com.brasilprev.application.customer.core.exceptions.CustomerNotFoundException;
 import br.com.brasilprev.application.customer.core.port.in.CustomerUseCase;
 import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class CustomerService implements CustomerUseCase {
 
     @Override
     public Optional<Customer> read(Customer customer) {
-        return Optional.empty();
+        return crudCustomerPort.read(customer);
     }
 
     @Override
@@ -37,8 +38,10 @@ public class CustomerService implements CustomerUseCase {
     }
 
     @Override
-    public Optional<Void> delete(Customer customer) {
-        return crudCustomerPort.delete(customer);
+    public void delete(Customer customer) throws CustomerNotFoundException {
+        if (crudCustomerPort.read(customer).isPresent())
+                throw new CustomerNotFoundException();
+        crudCustomerPort.delete(customer);
     }
 
 }

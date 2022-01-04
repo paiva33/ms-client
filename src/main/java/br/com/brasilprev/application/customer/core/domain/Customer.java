@@ -4,7 +4,9 @@ import lombok.*;
 
 @Getter
 @Setter
-//@Builder
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
 	private Long id;
@@ -12,13 +14,4 @@ public class Customer {
 	private String document;
 	private Address address;
 
-	public Customer() {}
-
-	public Customer(Long id) {
-		this.id = id;
-	}
-
-	public Customer(String document) {
-		this.document = document;
-	}
 }
