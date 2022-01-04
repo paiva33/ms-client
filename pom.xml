@@ -6,74 +6,172 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.1</version>
+<!--		<version>2.6.1</version>-->
+		<version>2.5.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>br.com.brasilprev</groupId>
 	<artifactId>ms-data-customer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-clientes</name>
+	<name>ms-data-customer</name>
 	<description>Customer API</description>
 	
 	<properties>
 		<java.version>11</java.version>
+		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
+		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+		<org.projectlombok.version>1.18.16</org.projectlombok.version>
+		<junit-jupiter.version>5.7.1</junit-jupiter.version>
 	</properties>
 	
 	<dependencies>
-	
+
+		<!-- for Web support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
-		<!-- Lib P/ adapater in web -->		
+
+		<!-- for Hikari support -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+
+		<!-- for Migrations support -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+
+		<!-- for Model Mapper support -->
+		<dependency>
+			<groupId>com.github.dozermapper</groupId>
+			<artifactId>dozer-core</artifactId>
+			<version>6.4.1</version>
+		</dependency>
+
+		<!-- for Validation support -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <!-- Lib P/ adapater in web -->
-        
-        <!-- Lib P/ adapater in persistence -->
+
+		<!-- for Zalando support -->
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>problem-spring-web</artifactId>
+			<version>0.25.2</version>
+		</dependency>
+
         <!-- for JPA support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
-		<!-- Lib P/ adapater in persistence -->
-		
-		<!-- for Open API Endpoints support -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.4.6</version>
-		</dependency>
 
+		<!-- for Postgresql support -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 		</dependency>
 		
-		<!-- Comum para todos os pacotes -->
+		<!-- for Lombok support  -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
+		<!-- for Mapstruct support -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
+		</dependency>
+
+		<!-- for Guava support (Swagger) -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
+		</dependency>
+
+		<!-- for Swagger Endpoints support -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<!-- for Swagger UI support -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<!-- for Security support -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- for Tokens support -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+		<!-- for Spring Boot Test support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
+		<!-- for Mockito support -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.6.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- for Mockito JUnit 5 support -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>3.6.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--  -->
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>5.7.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- include junit-jupiter-api, junit-jupiter-params, and junit-jupiter-engine.  -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.7.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- for Hamcrest support -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<version>2.2</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -90,7 +188,171 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>11</source> <!-- depending on your project -->
+					<target>11</target> <!-- depending on your project -->
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+						 <path>
+	                        <groupId>org.projectlombok</groupId>
+	                        <artifactId>lombok</artifactId>
+	                        <version>${org.projectlombok.version}</version>
+	                    </path>
+	
+	                    <!-- additional annotation processor required as of Lombok 1.18.16 -->
+	                    <path>
+	                        <groupId>org.projectlombok</groupId>
+	                        <artifactId>lombok-mapstruct-binding</artifactId>
+	                        <version>0.1.0</version>
+	                    </path>
+						<!-- other annotation processors -->
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>docker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<version>0.4.13</version>
+						<executions>
+							<execution>
+								<id>default</id>
+								<goals>
+									<goal>build</goal>
+									<goal>push</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+							<repository>fexx181/spring-docker-spotify</repository>
+							<tag>${project.version}</tag>
+							<buildArgs>
+								<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+							</buildArgs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>swaggerv2</id>
+			<dependencies>
+				<dependency>
+					<groupId>io.swagger.core.v3</groupId>
+					<artifactId>swagger-annotations</artifactId>
+					<version>2.1.7</version>
+				</dependency>
+				<dependency>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+					<version>2.12.1</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+					<version>5.3.4</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+					<version>5.3.4</version>
+				</dependency>
+				<dependency>
+					<groupId>javax.annotation</groupId>
+					<artifactId>javax.annotation-api</artifactId>
+					<version>1.3.2</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.swagger.codegen.v3</groupId>
+						<artifactId>swagger-codegen-maven-plugin</artifactId>
+						<version>3.0.25</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<inputSpec>${project.basedir}/src/main/resources/petstore.yaml</inputSpec>
+									<language>java</language>
+									<apiPackage>io.codejournal.maven.swagger2java.api</apiPackage>
+									<modelPackage>io.codejournal.maven.swagger2java.model</modelPackage>
+									<invokerPackage>io.codejournal.maven.swagger2java.handler</invokerPackage>
+									<generateApiTests>false</generateApiTests>
+									<generateApiDocumentation>false</generateApiDocumentation>
+									<generateModelTests>false</generateModelTests>
+									<generateModelDocumentation>false</generateModelDocumentation>
+									<generateSupportingFiles>true</generateSupportingFiles>
+									<configOptions>
+										<interfaceOnly>true</interfaceOnly>
+										<dateLibrary>java8</dateLibrary>
+									</configOptions>
+									<library>resttemplate</library>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>swagger</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<plugins>
+					<plugin>
+						<groupId>io.swagger.codegen.v3</groupId>
+						<artifactId>swagger-codegen-maven-plugin</artifactId>
+						<version>3.0.30</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<language>java</language>
+									<inputSpec>${project.basedir}/src/main/resources/swagger.yml</inputSpec>
+									<configOptions>
+										<sourceFolder>src/gen/java/main</sourceFolder>
+										<useBeanValidation>true</useBeanValidation>
+										<dateLibrary>java8-localdatetime</dateLibrary>
+									</configOptions>
+									<generateApis>false</generateApis>
+									<generateSupportingFiles>false</generateSupportingFiles>
+									<modelPackage>br.com.brasilprev.application.customer.adapter.in.web</modelPackage>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
 </project>

@@ -1,0 +1,1 @@
+package br.com.brasilprev.application.customer.adapter.out.persistence;
