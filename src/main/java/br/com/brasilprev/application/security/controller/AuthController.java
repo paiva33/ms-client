@@ -22,7 +22,7 @@ import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-@Api(tags = "AuthenticationEndpoint") 
+@Api(tags = "Authentication Endpoint")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
