@@ -2,6 +2,7 @@ package br.com.brasilprev.application.customer.adapter.in.web;
 
 import br.com.brasilprev.application.customer.adapter.in.web.mapper.CustomerRequestMapper;
 import br.com.brasilprev.application.customer.adapter.in.web.mapper.CustomerResponseMapper;
+import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerFilterRequest;
 import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerRequest;
 import br.com.brasilprev.application.customer.adapter.in.web.payload.CustomerResponse;
 import br.com.brasilprev.application.customer.core.domain.Customer;
@@ -10,6 +11,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +58,7 @@ public class CustomerEndpoint implements BaseEndpoint {
 	 * or with status {@code 400 (Bad Request)} if the customerRequest is not valid,
 	 * or with status {@code 500 (Internal Server Error)} if the customerRequest couldn't be updated.
 	 */
-	@ApiOperation(value = "Update customer", tags = {"UpdateCustomer"})
+	@ApiOperation(value = "Update customer")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "Customer updated"),
 		@ApiResponse(code = 400, message = "Customer is not valid"),
@@ -68,14 +72,14 @@ public class CustomerEndpoint implements BaseEndpoint {
 	}
 
 	/**
-	 * {@code GET /api/customer/v1 }
+	 * {@code POST /api/customer/v1/search }
 	 * @param request
 	 * @return
 	 */
-	@ApiOperation(value = "Get all customers", tags={"GetAllCustomers"})
-	@GetMapping("/search")
-	public ResponseEntity<CustomerResponse> read(@RequestBody @Valid CustomerRequest request) {
-		return customerUseCase.read(requestMapper.toDomain(request))
+	@ApiOperation(value = "Search customers")
+	@PostMapping("/search")
+	public ResponseEntity<Page<CustomerResponse>> search(@RequestBody @Valid CustomerRequest request, @PageableDefault(sort = "name") Pageable pageable) {
+		return customerUseCase.search(requestMapper.toDomain(request), pageable)
 				.map(customer -> ResponseEntity.ok().body(responseMapper.toPayload(customer)))
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
@@ -85,7 +89,7 @@ public class CustomerEndpoint implements BaseEndpoint {
 	 * @param
 	 * @return
 	 */
-	@ApiOperation(value = "Get all customers", tags={"GetAllCustomers"})
+	@ApiOperation(value = "Get all customers")
 	@GetMapping
 	public ResponseEntity<List<CustomerResponse>> readAll() {
 		return Optional.ofNullable(customerUseCase.readAll())
@@ -93,7 +97,7 @@ public class CustomerEndpoint implements BaseEndpoint {
 				.orElseGet(ResponseEntity.badRequest()::build);
 	}
 
-
+	@ApiOperation(value = "Get customer by id")
 	@GetMapping("/{id}")
 	public ResponseEntity<CustomerResponse> readById(@PathVariable Long id) {
 		return customerUseCase
@@ -111,7 +115,6 @@ public class CustomerEndpoint implements BaseEndpoint {
 	 * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
 	 */
 	@ApiOperation(value = "Delete customer", tags = {"DeleteCustomer"})
-	//@ApiResponse(code = 204)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		customerUseCase

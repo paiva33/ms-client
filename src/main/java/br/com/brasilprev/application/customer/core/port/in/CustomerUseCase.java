@@ -2,6 +2,8 @@ package br.com.brasilprev.application.customer.core.port.in;
 
 import br.com.brasilprev.application.customer.core.domain.Customer;
 import br.com.brasilprev.application.customer.core.exceptions.CustomerNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,13 @@ public interface CustomerUseCase {
 	 * @return
 	 */
 	Optional<Customer> read(Customer customer);
+
+	/**
+	 *
+	 * @param customer
+	 * @return
+	 */
+	Page<Customer> search(Customer customer, Pageable pageable);
 
 	/**
 	 *

@@ -17,4 +17,6 @@ public interface CustomerResponseMapper {
     CustomerResponse toPayload(Customer customer);
 
     List<CustomerResponse> toPayload(List<Customer> customers);
+
+
 }
