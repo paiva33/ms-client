@@ -1,15 +1,14 @@
 package br.com.brasilprev.application.customer.adapter.out.persistence;
 
-import br.com.brasilprev.application.customer.adapter.out.persistence.mapper.CustomerMapper;
+import java.util.List;
+import java.util.Optional;
+
 import br.com.brasilprev.application.customer.adapter.out.persistence.mapper.CustomerPersistenceMapper;
 import br.com.brasilprev.application.customer.core.domain.Customer;
 import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
 import br.com.brasilprev.application.customer.core.port.out.SearchCustomerPort;
 import br.com.brasilprev.application.utility.annotations.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Customer Adapter

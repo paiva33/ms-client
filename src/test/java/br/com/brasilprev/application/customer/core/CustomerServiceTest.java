@@ -1,18 +1,12 @@
 package br.com.brasilprev.application.customer.core;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.Mockito.when;
 
-import br.com.brasilprev.application.customer.core.builders.CustomerBuilder;
-import br.com.brasilprev.application.customer.core.domain.Customer;
-import br.com.brasilprev.application.customer.core.exceptions.CustomerNotFoundException;
-import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
-import br.com.brasilprev.application.customer.core.service.CustomerService;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Ignore;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +15,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.util.Optional;
+import br.com.brasilprev.application.customer.core.builders.CustomerBuilder;
+import br.com.brasilprev.application.customer.core.domain.Customer;
+import br.com.brasilprev.application.customer.core.port.out.CrudCustomerPort;
+import br.com.brasilprev.application.customer.core.service.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j

@@ -3,7 +3,6 @@ package br.com.brasilprev.application.customer.adapter.in.web.payload;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Value;
 
 @Getter
 @Setter
@@ -14,4 +13,5 @@ public class CustomerRequest {
 	private Long id;
 	private String name;
 	private String document;
+	private AddressRequest address;
 }
